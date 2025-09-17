@@ -6,14 +6,22 @@ on:
       environment:
         description: "Environment (dev, qa, uat, integ, prod)"
         required: true
-        default: "dev"
+        options:
+          - dev
+          - qa
+          - uat
+          - integ
+          - prod
       branch:
         description: "Branch"
         required: true
-        default: "main"
+        type : string
+        options:
+         - main
       tag:
         description: "App version tag"
         required: true
+        type: string
         default: "v1.0.0"
 
 jobs:
