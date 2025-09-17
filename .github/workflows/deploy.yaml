@@ -39,10 +39,10 @@ jobs:
           APP_ENV: ${{ github.event.inputs.environment }}
           APP_VERSION: ${{ github.event.inputs.tag }}
          run: |
-          echo "🟢 Starting app in $APP_ENV with version $APP_VERSION"
+          echo "Starting app in $APP_ENV with version $APP_VERSION"
           nohup node index.js > app.log 2>&1 &
           echo $! > app.pid
-          sleep 5  # give server time to start
+          sleep 5
 
       - name: Test the app
         run: |
