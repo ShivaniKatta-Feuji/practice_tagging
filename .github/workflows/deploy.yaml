@@ -4,16 +4,23 @@ on:
   workflow_dispatch:
     inputs:
       environment:
+        description: "Environment (dev, qa, uat, integ, prod)"
         required: true
+        type: choice
         options:
           - dev
           - qa
           - uat
           - integ
           - prod
+
       branch:
+        description: "Branch to deploy"
+        required: true
+        type: choice
         options:
-         - main
+          - main
+
       tag:
         description: "App version tag (v1.0.0)"
         required: true
