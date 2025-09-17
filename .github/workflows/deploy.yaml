@@ -13,14 +13,6 @@ on:
           - uat
           - integ
           - prod
-
-      branch:
-        description: "Branch to deploy"
-        required: true
-        type: choice
-        options:
-          - main
-
       tag:
         description: "App version tag (v1.0.0)"
         required: true
