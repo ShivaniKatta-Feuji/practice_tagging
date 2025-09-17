@@ -1,0 +1,43 @@
+name: Deployment of Demo App
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Environment (dev, qa, uat, integ, prod)"
+        required: true
+        default: "dev"
+      branch:
+        description: "Branch"
+        required: true
+        default: "main"
+      tag:
+        description: "App version tag"
+        required: true
+        default: "v1.0.0"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the selected branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.branch }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run the app with environment and version
+        env:
+          APP_ENV: ${{ github.event.inputs.environment }}
+          APP_VERSION: ${{ github.event.inputs.tag }}
+        run: |
+          echo "Starting app in $APP_ENV environment with version $APP_VERSION"
+          node index.js
