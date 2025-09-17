@@ -38,6 +38,23 @@ jobs:
         env:
           APP_ENV: ${{ github.event.inputs.environment }}
           APP_VERSION: ${{ github.event.inputs.tag }}
+         run: |
+          echo "🟢 Starting app in $APP_ENV with version $APP_VERSION"
+          nohup node index.js > app.log 2>&1 &
+          echo $! > app.pid
+          sleep 5  # give server time to start
+
+      - name: Test the app
         run: |
-          echo "Starting app in $APP_ENV environment with version $APP_VERSION"
-          node index.js
+          echo "Testing server output:"
+          curl -s http://localhost:3000/
+
+      - name: Stop the server
+        run: |
+          echo "Stopping the server..."
+          kill $(cat app.pid)
+
+      - name: Show logs
+        run: |
+          echo "Server logs:"
+          cat app.log
