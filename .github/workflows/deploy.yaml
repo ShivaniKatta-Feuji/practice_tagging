@@ -4,7 +4,6 @@ on:
   workflow_dispatch:
     inputs:
       environment:
-        description: "Environment"
         required: true
         options:
           - dev
@@ -13,8 +12,6 @@ on:
           - integ
           - prod
       branch:
-        description: "Branch"
-        required: true
         options:
          - main
       tag:
